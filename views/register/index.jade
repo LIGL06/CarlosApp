@@ -6,24 +6,56 @@ html
     scipt(src='/js/bootstrap.js')
     scipt(src='/js/jquery.js')
     style.
-      body{background-color:black;color:white} 
+      body{color:white;}
+      .img-responsive{background:url('/img/bg.jpg'); background-repeat: no repeat;
+        background-position:center center; background-attachment: fixed;
+        background-size: cover;}
       h3{color:white;}   
       .fb{background-color: #2A46A1}
       .margin-top{margin-top:5px;}
-      .bg{background-color: transparent;}
-  body
-    h3.text-center INICIAR SESIÓN
-    .container.col-xs-12
-      .row.fb
-        i.fa.fa-facebook.fa-2x.col-xs-2.margin-top
-        p.col-xs-10.pull-left.margin-top Iniciar sesión con Facebook
-      .row.col-xs-12
-        h4.text-center o
-      .row.col-xs-12
-        form(action='/register',method='post')
-          div(data-role='fieldcontain')
-            fieldset.bg(data-role='controlgroup')
-              i.fa.fa-user
-              input#email(type="text",value='',placeholder='email',name='email')
-        
-      
+      .pull-down{margin-top:1em;}
+      .bg{background-color: transparent}
+      .semi{background-color: rgba(0, 0, 0, 0.75);}
+      .trans{background-color: transparent;border-color:transparent;}
+      .sub{background-color: #FF3716;border-color:transparent;}
+      .centered{position:relative; top:4em; left: 0em; }
+  body.img-responsive
+    .container.centered.semi.pull-down
+      h3.text-center INICIAR SESIÓN
+      .container.col-xs-12
+        .row.fb
+          i.fa.fa-facebook.fa-2x.col-xs-2.margin-top
+          p.col-xs-10.pull-left.margin-top Regístrate con Facebook
+        .row.col-xs-12.pull-down
+          p.text-center o con tu correo electrónico
+        .row
+          form(action='/register',method='post')
+            .pull-down(data-role='fieldcontain')
+              fieldset.bg(data-role='controlgroup')
+                .row.col-xs-12
+                  i.fa.fa-envelope-o.fa-2x.col-xs-2
+                  input#email.col-xs-10.trans(type="text",value='',placeholder='Correo electrónico',name='email')
+            .margin-top(data-role='fieldcontain')
+              fieldset.bg(data-role='controlgroup')
+                .row.col-xs-12
+                  i.fa.fa-lock.fa-2x.col-xs-2
+                  input#email.col-xs-10.trans(type="password",value='',placeholder='Elige una contraseña',name='password')
+            .margin-top(data-role='fieldcontain')
+              fieldset.bg(data-role='controlgroup')
+                .row.col-xs-12
+                  i.fa.fa-user.fa-2x.col-xs-2
+                  input#email.col-xs-10.trans(type="text",value='',placeholder='Elegir nombre de usuario',name='username')
+            .margin-top(data-role='fieldcontain')
+              fieldset.bg(data-role='controlgroup')
+                .row.col-xs-12
+                  i.fa.fa-calendar.fa-2x.col-xs-2
+                  input#email.col-xs-10.trans(type="datetime",value='',placeholder='Fecha de nacimiento',name='date')
+            .margin-top(data-role='fieldcontain')
+              fieldset.bg(data-role='controlgroup')
+                .row.col-xs-12
+                  i.fa.fa-users.fa-2x.col-xs-2
+                  input#email.col-xs-10.trans(type="text",value='',placeholder='Sexo',name='sex')
+            .pull-down(data-role='fieldcontain')
+              fieldset.bg(data-role='controlgroup')
+                .row
+                  input.sub.col-xs-12(type='submit',value='Sign Up',data-transition='fade', data-theme='c')    
