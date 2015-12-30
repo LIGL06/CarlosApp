@@ -4,12 +4,31 @@ const jade = require('jade')
 const fs = require('fs')
 const sendgrid = require('sendgrid')(process.env.SENDG_ID)
 const app = express()
-const compHtml = jade.renderFile('./views/email/email.jade',{name: 'Template Correo'})
+const compHtml = jade.renderFile('./views/email/email.jade')
+const port = process.env.PORT || 12000
+const host = process.env.HOST || '127.0.0.1'
+
+const emails = []
+emails.push({
+  name: 'Luis Iván',
+  mail: 'luis.garcialuna@outlook.com'
+})
+emails.push({
+  name: 'Carlos Perez',
+  mail: 'carlosperezaraujo@outlook.com'
+})
 
 app.set('view engine','jade')
 app.set('views','./views')
 app.use(express.static('public'))
 
+app.get('/',function(req,res){
+  const params = {"emails" : emails}
+  res.render('index',params,function(error,html){
+    res.send(html)
+  })
+  console.log(emails)
+})
 app.get('/register',function(req,res){
   res.render('register/index')
 })
@@ -28,4 +47,5 @@ app.post('/register',function(req,res){
   })
 })
 
-app.listen(12000)
+
+app.listen(port)

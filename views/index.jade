@@ -1,0 +1,14 @@
+doctype html
+html(lang='en-US')
+  head
+      title Mis emails
+  body
+    h1 Bienvenido a mi Base de datos, Free User
+    p Aquí podrás adminsitrar tu correo...
+    ul
+      - for(email in emails) {
+        li= emails[email].name 
+        | &nbsp;- (
+        a(href=emails[email].mail) link
+        | )
+      - }
