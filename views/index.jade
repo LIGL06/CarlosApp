@@ -7,7 +7,7 @@ html(lang='en-US')
     p Aquí podrás adminsitrar tu correo...
     form(action='add',method='post')
       label Nombre:
-      input(type='text',name='name')
+      input(type='text',name='nombre')
       | &nbsp;
       label Email: 
       input(type='text',name='mail')
@@ -17,7 +17,7 @@ html(lang='en-US')
         li
             a(href=emails[email].mail)= emails[email].name
             | &nbsp;- (
-            a(href='delete/#{emails}') delete
+            a(href='delete/#{emails[email].id}') delete
             | )
         //- li= emails[email].name 
         //- | &nbsp;- (

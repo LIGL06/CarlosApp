@@ -10,15 +10,6 @@ const db = new sqlite3.Database('carlos.db')
 const compHtml = jade.renderFile('./views/email/email.jade')
 const port = process.env.PORT || 12000
 const host = process.env.HOST || '127.0.0.1'
-const emails = []
-emails.push({
-  name: 'Luis Iván',
-  mail: 'luis.garcialuna@outlook.com'
-})
-emails.push({
-  name: 'Carlos Perez',
-  mail: 'carlosperezaraujo@outlook.com'
-})
 
 db.get("SELECT name FROM sqlite_master WHERE type='table' AND name='emails'",
        function(err, rows) {
@@ -41,27 +32,28 @@ app.set('views','./views')
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
 
-app.get('/',function(req,res){
+app.get('/',function(req,res,next){
   db.all('SELECT * FROM emails ORDER BY name',function(error,row){
     if (error!==null) next(error)
     else{
       console.log(row)
       res.render('index',{emails:row},function(error,html){
-        res.send(200,html)
+        res.status(200).send(html)
       })
     }
   })
-  // const params = {"emails" : emails}
-  // res.render('index',params,function(error,html){
-  //   res.send(html)
-  // })
 })
 app.get('/email',function(req,res){
   res.render('email/email')
 })
-app.get('/delete/:id',function(req,res){
-  emails.splice(req.params.id, 1)
-  res.redirect('/')
+app.get('/delete/:id',function(req,res,next){
+  db.run("DELETE FROM emails WHERE id='" + req.params.id + "'",
+          function(error){
+            if(error!==null) next(error)
+            else res.redirect('back')
+          })
+  // emails.splice(req.params.id, 1)
+  // res.redirect('/')
 })
 app.get('/register',function(req,res){
   res.render('register/index')
@@ -77,9 +69,17 @@ app.post('/register',function(req,res){
   console.log(json);
   })
 })
-app.post('/add',function(req,res){
-  emails.push(req.body)
-  res.redirect('/')
+app.post('/add',function(req,res,next){
+  var name = req.body.nombre
+  var url = req.body.mail
+  var sqlRequest = "INSERT INTO 'emails' (name,url)" +
+                    "VALUES('" + name + "', '" + url + "')"
+  db.run(sqlRequest, function(error){
+    if(error!==null) next(error)
+    else res.redirect('back')
+  })
+  // emails.push(req.body)
+  // res.redirect('/')
 })
 
 app.listen(port)
