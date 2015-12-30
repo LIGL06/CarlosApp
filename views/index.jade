@@ -5,10 +5,22 @@ html(lang='en-US')
   body
     h1 Bienvenido a mi Base de datos, Free User
     p Aquí podrás adminsitrar tu correo...
+    form(action='add',method='post')
+      label Nombre:
+      input(type='text',name='name')
+      | &nbsp;
+      label Email: 
+      input(type='text',name='mail')
+      input(type='submit',value='Guardar')
     ul
       - for(email in emails) {
-        li= emails[email].name 
-        | &nbsp;- (
-        a(href=emails[email].mail) link
-        | )
+        li
+            a(href=emails[email].mail)= emails[email].name
+            | &nbsp;- (
+            a(href='delete/#{emails}') delete
+            | )
+        //- li= emails[email].name 
+        //- | &nbsp;- (
+        //- a(href=emails[email].mail) link
+        //- | )
       - }
